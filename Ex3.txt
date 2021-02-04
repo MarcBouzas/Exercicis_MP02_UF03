@@ -1,19 +1,19 @@
 
 USE LLIBRERIA;
 
-
+-- Modifiquem el delimitador de sentències a //
 DELIMITER //
 
+DROP PROCEDURE IF EXISTS sp02_Llibres_Autor//
 
-DROP PROCEDURE IF EXISTS sp01_Llibre_Aprop_Estoc;
 
-CREATE PROCEDURE sp01_Llibre_Aprop_Estoc()
-
+CREATE PROCEDURE sp02_Llibres_Autor(
+      IN  p_autor varchar(30))
   BEGIN
 
-   SELECT TITOL, EDITORIAL, ESTOC
-   FROM LLIBRES
-   WHERE ESTOC <= 5;
+    SELECT TITOL, EDITORIAL, PREU
+    FROM   LLIBRES
+    WHERE  AUTOR = p_autor;
 
   END//
 
