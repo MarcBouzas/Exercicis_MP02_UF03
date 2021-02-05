@@ -1,4 +1,4 @@
-
+	
 USE videoclub;
 
 DELIMITER //
@@ -14,7 +14,7 @@ CREATE PROCEDURE sp06_comptaPelisPerActors(
 
      SELECT id_actor INTO codi_Actor
      FROM ACTORS
-     WHERE nom_actor = p_nomActor;
+     WHERE nom_actor = pi_nomActor;
 
 
      SELECT COUNT(id_peli) INTO qtat_Pelis
