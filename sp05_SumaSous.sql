@@ -5,7 +5,7 @@ DELIMITER //
 
 DROP PROCEDURE IF EXISTS sp_05_sumasous//
 
-CREATE PROCEDURE sp_05_sumasous()
+CREATE PROCEDURE sp_05_sumasous(
 
   BEGIN
 
@@ -26,7 +26,7 @@ CREATE PROCEDURE sp_05_sumasous()
 
     SELECT  CONCAT("Suma de sous amb l'augment: ",
                    @sumafutura)
-            AS Futur;
+            AS Futur;)
   END //
 
 DELIMITER ;
