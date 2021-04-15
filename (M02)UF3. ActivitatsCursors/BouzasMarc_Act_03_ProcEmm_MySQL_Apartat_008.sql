@@ -18,19 +18,19 @@ BEGIN
 	DECLARE continue handler for not found SET final = 1;
 	open elcursor;
 	elbucle:loop
-	fetch elcursor into titol, recap, press;
+		fetch elcursor into titol, recap, press;
       
-	IF final = 1 then
-		leave elbucle;
-	END IF;
+		IF final = 1 then
+			leave elbucle;
+		END IF;
       
-	IF (press < recap) then
-		SET rend = "Deficitari";
-	ELSEIF (recap < press*2) then
-		SET rend = "Suficient";
-	ELSE
-		SET rend = "Bona";
-	END IF;
+		IF (press < recap) then
+			SET rend = "Deficitari";
+		ELSEIF (recap < press*2) then
+			SET rend = "Suficient";
+		ELSE
+			SET rend = "Bona";
+		END IF;
 
 	SELECT titol, rend;
    
