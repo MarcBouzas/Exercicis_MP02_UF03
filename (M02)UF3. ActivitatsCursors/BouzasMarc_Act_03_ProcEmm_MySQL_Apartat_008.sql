@@ -10,7 +10,7 @@ begin
    declare final int default false;
    
    declare elcursor cursor for
-      select titol_peli, recaudacio_peli, presspost_peli
+      select titol_peli, recaudacio_peli, pressupost_peli
       from PELLICULES;
 
    declare continue handler for not found set final = 1;
@@ -37,3 +37,4 @@ end//
 
 delimiter ;
 
+call act8();
