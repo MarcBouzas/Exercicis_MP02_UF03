@@ -1,41 +1,57 @@
-USE videoclub;
-DROP PROCEDURE IF EXISTS activitat9;
-DELIMITER //
-CREATE PROCEDURE activitat9()
+use videoclub;
+drop procedure if exists act9;
+delimiter //
+create procedure act9()
 
-BEGIN
-	DECLARE titol VARCHAR(40);
-	DECLARE rend VARCHAR(15);
-	DECLARE final INT DEFAULT FALSE;
-	DECALRE recap BIGINT DEFAULT 0;
-	DECALRE press BIGINT DEFAULT 0;
-   
-	DECLARE elcursor cursor for
-	SELECT titol_peli, recaudacio_peli, presspost_peli
-	FROM PELLICULES;
+begin
+  declare nomact varchar(30);
+  declare edatact smallint;
+  declare sexeact varchar(45);
+  declare paper varchar(30);
+  declare final int default 0;
 
-	DECLARE continue handler for not found set final = 1;
-	OPEN elcursor;
-	elbucle:loop
-		fetch elcursor into titol, recap, press;
-	IF final = 1 then
-		leave elbucle;
-	END IF;
-      
-	IF(recap<press) then
-		SET rend = "Deficitari";
-	ELSEIF(recap <press*2) then
-		SET rend = "Suficient";
-	ELSE
-		SET rend = "Bona";
-	END IF;
-      
-	SELECT titol, rend;
-   
-	END loop elbucle; 
-	CLOSE elcursor;
-END
+  declare cursorAct9 cursor for
+    select nom_actor,year(curdate()) - anynaix_actor,sexe_actor
+	from ACTORS;
+  declare CONTINUE HANDLER FOR NOT FOUND SET final = 1;
 
-DELIMITER;
+  open cursorAct9;
+  bucle:loop
+    fetch cursorAct9 into nomact,edatact,sexeact;
+	  if final = 1 then
+	    leave bucle;
+	  end if;
+	  if sexeact = "home" then
+        if edatact <15 then
+          set paper = "nen";
+        elseif edatact >16 and edatact <25 then
+          set paper = "home adolescent";
+        elseif edatact >25 and edatact <40 then
+          set paper = "home adult";
+        elseif edatact >40 and edatact <60 then
+          set paper = "home madur";
+        elseif edatact <61 then
+          set paper = "home gran";
+        end if;
+          
+      elseif sexeact = "dona" then
+        if edatact <15 then
+          set paper = "nena";
+        elseif edatact >16 and edatact <25 then
+          set paper = "dona adolescent";
+        elseif edatact >25 and edatact <40 then
+          set paper = "dona adulta";
+        elseif edatact >40 and edatact <60 then
+          set paper = "dona madura";
+        elseif edatact <61 then
+          set paper = "dona gran";
+        end if;
+      end if;
+      select nomact,edatact,sexeact,paper;
+    end loop bucle;
+    close cursorAct9;
+end//
 
-CALL activitat9();
+delimiter ;
+
+call act9();
