@@ -1,44 +1,39 @@
-USE videoclub;
-DROP PROCEDURE IF EXISTS act8;
-DELIMITER //
-CREATE PROCEDURE act8()
-
-BEGIN
-	DECLARE final INT DEFAULT FALSE;
-	DECLARE rend VARCHAR(15);
-	DECLARE titol VARCHAR(40);
-	DECLARE recap BIGINT DEFAULT 0;
-	DECLARE press BIGINT DEFAULT 0;
+use videoclub;
+drop procedure if exists act8;
+delimiter //
+create procedure act8()
+begin
+   declare recap bigint default 0;
+   declare press bigint default 0;
+   declare titol varchar(40);
+   declare rend varchar(15);
+   declare final int default false;
    
-	DECLARE elcursor cursor for
+   declare elcursor cursor for
+      select titol_peli, recaudacio_peli, presspost_peli
+      from PELLICULES;
 
-	SELECT titol_peli, recaudacio_peli, presspost_peli
-	FROM PELLICULES;
-
-	DECLARE continue handler for not found SET final = 1;
-	open elcursor;
-	elbucle:loop
-		fetch elcursor into titol, recap, press;
+   declare continue handler for not found set final = 1;
+   open elcursor;
+   bucle:loop
+      fetch elcursor into titol, recap, press;
       
-		IF final = 1 then
-			leave elbucle;
-		END IF;
+      if final = 1 then
+         leave bucle;
+      end if;
       
-		IF (press < recap) then
-			SET rend = "Deficitari";
-		ELSEIF (recap < press*2) then
-			SET rend = "Suficient";
-		ELSE
-			SET rend = "Bona";
-		END IF;
-
-	SELECT titol, rend;
+      if (recap<press*2) then
+         set rend = "Suficient";
+      elseif (recap<press) then
+	     set rend = "Deficitari";
+      else
+         set rend = "Be";
+      end if;
+      select titol, rend;
    
-	END loop elbucle; 
+   end loop bucle; 
+   close elcursor;
+end//
 
-	close elcursor;
-END//
+delimiter ;
 
-DELIMITER ;
-
-call act8();
