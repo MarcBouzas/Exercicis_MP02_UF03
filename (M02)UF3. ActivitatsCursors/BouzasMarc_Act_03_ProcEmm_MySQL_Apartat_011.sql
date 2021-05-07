@@ -1,22 +1,23 @@
-USE videoclub;
-DROP FUNCTION IF EXISTS act11;
+use videoclub;
+drop function if exists act11;
 
-DELIMITER //
-CREATE FUNCTION act11(codiPeli SMALLINT UNSIGNED)
-	RETURNS SMALLINT UNSIGNED
-	DETERMINISTIC
-BEGIN
-	DECLARE quantiatExemplars SMALLINT UNSIGNED;
+delimiter //
+create function act11(codiPeli SMALLINT UNSIGNED)
+  returns smallint unsigned
+  deterministic
+begin
+ declare quantitatExemplars smallint unsigned;
 
-	SELECT	COUNT(*)
-		INTO quantiatExemplars
-	FROM	EXEMPLARS
-	WHERE	id_peli = peCodiPeli;
+  select  COUNT(*)
+    into quantitatExemplars
+  from  PRESTECS
+  WHERE	id_peli = codipeli;
 
-	RETURN quantiatExemplars;
-END//
-DELIMITER ;
+  return quantitatExemplars;
+end//
+delimiter ;
 
-SELECT  titol_peli Titol, act11(1) "Quantitat exemplars"
-FROM    PELLICULES
-WHERE   id_peli = 1;
+SELECT titol_peli, act11(2) "Usuaris Visualitzats",nom_soci
+FROM PELLICULES, PRESTECS
+INNER JOIN SOCIS ON PRESTECS.id_soci = SOCIS.id_soci
+WHERE PRESTECS.id_peli = 2 AND PELLICULES.id_peli = 2;
