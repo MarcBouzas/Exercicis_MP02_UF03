@@ -246,6 +246,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 **1. Enllaç al fitxer**
 [act9.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/2f6ead06e452bf3f5e8b356214a8d368816aaf79/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_009.sql)
+
 **2. Contingut del fitxer**
 ```sql
    use videoclub;
