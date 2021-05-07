@@ -17,7 +17,7 @@ begin
 end//
 delimiter ;
 
-SELECT titol_peli, act11(2) "Usuaris Visualitzats",nom_soci
+SELECT titol_peli, act11(2) "Visualitzacions dels Usuaris",nom_soci
 FROM PELLICULES, PRESTECS
 INNER JOIN SOCIS ON PRESTECS.id_soci = SOCIS.id_soci
 WHERE PRESTECS.id_peli = 2 AND PELLICULES.id_peli = 2;
