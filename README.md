@@ -4,10 +4,10 @@ Revisió dels exercicis de la **unitat formativa 3** del **mòdul professional 2
 
 |Enunciat|Fitxer|Comentari|Nota|
 |--------|------|---------|----|
-|**Enunciat 9**|?????|?????|?????|
-|**Enunciat 11**|?????|?????|?????|
-|**Enunciat 12**|?????|?????|?????|
-|**Enunciat 13**|?????|?????|?????|
+|**Enunciat 9**|[act9.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/2f6ead06e452bf3f5e8b356214a8d368816aaf79/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_009.sql)|FET|?????|
+|**Enunciat 11**|[act11.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/028dc0437386024b6ac5d9917e935d47e783a26e/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_011.sql)|FET|?????|
+|**Enunciat 12**|[act12.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/9af3439c8cd873b5883b3896444416ae644bb6b7/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_012.sql)|FET|?????|
+|**Enunciat 13**|[act13.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/9af3439c8cd873b5883b3896444416ae644bb6b7/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_013.sql)|FET|?????|
 
 
 # Exemple de correcció
