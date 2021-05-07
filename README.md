@@ -555,17 +555,65 @@ mysql>
 
 **2. Contingut del fitxer**
 ```sql
-   <El codi del vostre fitxer>
+   use videoclub;
+drop function if exists act11;
+
+delimiter //
+create function act11(codiPeli SMALLINT UNSIGNED)
+  returns smallint unsigned
+  deterministic
+begin
+ declare quantitatExemplars smallint unsigned;
+
+  select  COUNT(*)
+    into quantitatExemplars
+  from  PRESTECS
+  WHERE	id_peli = codipeli;
+
+  return quantitatExemplars;
+end//
+delimiter ;
 ```
 
 **3. Sortida de la creació del procediment**
 ```sql
-   <La sortida de la creació del vostre procediment>
+   mysql> create function act11(codiPeli SMALLINT UNSIGNED)
+    ->   returns smallint unsigned
+    ->   deterministic
+    -> begin
+    ->  declare quantitatExemplars smallint unsigned;
+    ->
+    ->   select  COUNT(*)
+    ->     into quantitatExemplars
+    ->   from  PRESTECS
+    ->   WHERE id_peli = codipeli;
+    ->
+    ->   return quantitatExemplars;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter ;
+
 ```
 
 **4. Sortida de l'execució del procediment**
 ```sql
-   <La sortida de l'execució del vostre procediment>
+   mysql> SELECT titol_peli, act11(2) "Visualitzacions dels Usuaris",nom_soci
+    -> FROM PELLICULES, PRESTECS
+    -> INNER JOIN SOCIS ON PRESTECS.id_soci = SOCIS.id_soci
+    -> WHERE PRESTECS.id_peli = 2 AND PELLICULES.id_peli = 2;
++-------------+------------------------------+-----------------+
+| titol_peli  | Visualitzacions dels Usuaris | nom_soci        |
++-------------+------------------------------+-----------------+
+| LA TERMINAL |                            4 | Ariadna Moreno  |
+| LA TERMINAL |                            4 | Laura Loreto    |
+| LA TERMINAL |                            4 | Sandra Sampedro |
+| LA TERMINAL |                            4 | Laura Gil       |
++-------------+------------------------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql>
+
 ```
 
 ---
@@ -578,17 +626,66 @@ mysql>
 
 **2. Contingut del fitxer**
 ```sql
-   <El codi del vostre fitxer>
+   use videoclub;
+drop function if exists act12;
+
+delimiter //
+create function act12(codi_peli smallint unsigned)
+  returns varchar (30)
+  deterministic
+begin
+  declare nomcognom varchar(30);
+
+  select nom_actor
+    into nomcognom
+  from ACTORS
+  inner join ACTORS_PELLICULES on ACTORS.id_actor = ACTORS_PELLICULES.id_actor
+  where id_peli = codi_peli
+  limit 1;
+
+  return nomcognom;
+end//
+delimiter ;
 ```
 
 **3. Sortida de la creació del procediment**
 ```sql
-   <La sortida de la creació del vostre procediment>
+   mysql> delimiter //
+mysql> create function act12(codi_peli smallint unsigned)
+    ->   returns varchar (30)
+    ->   deterministic
+    -> begin
+    ->   declare nomcognom varchar(30);
+    ->
+    ->   select nom_actor
+    ->     into nomcognom
+    ->   from ACTORS
+    ->   inner join ACTORS_PELLICULES on ACTORS.id_actor = ACTORS_PELLICULES.id_actor
+    ->   where id_peli = codi_peli
+    ->   limit 1;
+    ->
+    ->   return nomcognom;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter ;
+
 ```
 
 **4. Sortida de l'execució del procediment**
 ```sql
-   <La sortida de l'execució del vostre procediment>
+   mysql> select titol_peli Titol, act12(2) "Nom actor principal"
+    -> from PELLICULES
+    -> where id_peli = 2;
++-------------+---------------------+
+| Titol       | Nom actor principal |
++-------------+---------------------+
+| LA TERMINAL | Tom Hanks           |
++-------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
 ```
 
 ---
@@ -601,17 +698,66 @@ mysql>
 
 **2. Contingut del fitxer**
 ```sql
-   <El codi del vostre fitxer>
+   use videoclub;
+drop function if exists act13;
+
+delimiter //
+create function act13()
+  returns smallint unsigned
+  deterministic
+begin
+  declare codi_peli smallint unsigned; 
+
+  select id_peli 
+    into codi_peli 
+  from PELLICULES
+  where recaudacio_peli = (
+    select max(recaudacio_peli)
+    from PELLICULES);
+
+    return codi_peli;
+end//
+delimiter ;
 ```
 
 **3. Sortida de la creació del procediment**
 ```sql
-   <La sortida de la creació del vostre procediment>
+   mysql> delimiter //
+mysql> create function act13()
+    ->   returns smallint unsigned
+    ->   deterministic
+    -> begin
+    ->   declare codi_peli smallint unsigned;
+    ->
+    ->   select id_peli
+    ->     into codi_peli
+    ->   from PELLICULES
+    ->   where recaudacio_peli = (
+    ->     select max(recaudacio_peli)
+    ->     from PELLICULES);
+    ->
+    ->     return codi_peli;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter ;
+
 ```
 
 **4. Sortida de l'execució del procediment**
 ```sql
-   <La sortida de l'execució del vostre procediment>
+   mysql> select titol_peli Titol, act12(act13()) Actor,recaudacio_peli Recaudacio
+    -> from PELLICULES
+    -> WHERE id_peli = act13();
++----------------+-------------------+------------+
+| Titol          | Actor             | Recaudacio |
++----------------+-------------------+------------+
+| Los Vengadores | Robert Downey Jr. | 1519557910 |
++----------------+-------------------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+
 ```
 
 ---
