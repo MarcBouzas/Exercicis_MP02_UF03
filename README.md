@@ -307,12 +307,240 @@ delimiter ;
 
 **3. Sortida de la creació del procediment**
 ```sql
-   <La sortida de la creació del vostre procediment>
+   mysql>    use videoclub;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> drop procedure if exists act9;
+Query OK, 0 rows affected, 3 warnings (0.01 sec)
+
+mysql> delimiter //
+mysql> create procedure act9()
+    ->
+    -> begin
+    ->   declare nomact varchar(30);
+    ->   declare edatact smallint;
+    ->   declare sexeact varchar(45);
+    ->   declare paper varchar(30);
+    ->   declare final int default 0;
+    ->
+    ->   declare cursorAct9 cursor for
+    ->     select nom_actor,year(curdate()) - anynaix_actor,sexe_actor
+    -> from ACTORS;
+    ->   declare CONTINUE HANDLER FOR NOT FOUND SET final = 1;
+    ->
+    ->   open cursorAct9;
+    ->   bucle:loop
+    ->     fetch cursorAct9 into nomact,edatact,sexeact;
+    ->   if final = 1 then
+    ->     leave bucle;
+    ->   end if;
+    ->   if sexeact = "home" then
+    ->         if edatact <15 then
+    ->           set paper = "nen";
+    ->         elseif edatact >16 and edatact <25 then
+    ->           set paper = "home adolescent";
+    ->         elseif edatact >25 and edatact <40 then
+    ->           set paper = "home adult";
+    ->         elseif edatact >40 and edatact <60 then
+    ->           set paper = "home madur";
+    ->         elseif edatact <61 then
+    ->           set paper = "home gran";
+    ->         end if;
+    ->
+    ->       elseif sexeact = "dona" then
+    ->         if edatact <15 then
+    ->           set paper = "nena";
+    ->         elseif edatact >16 and edatact <25 then
+    ->           set paper = "dona adolescent";
+    ->         elseif edatact >25 and edatact <40 then
+    ->           set paper = "dona adulta";
+    ->         elseif edatact >40 and edatact <60 then
+    ->           set paper = "dona madura";
+    ->         elseif edatact <61 then
+    ->           set paper = "dona gran";
+    ->         end if;
+    ->       end if;
+    ->       select nomact,edatact,sexeact,paper;
+    ->     end loop bucle;
+    ->     close cursorAct9;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> delimiter ;
+
 ```
 
 **4. Sortida de l'execució del procediment**
 ```sql
-   <La sortida de l'execució del vostre procediment>
+   mysql> call act9();
++--------------+---------+---------+------------+
+| nomact       | edatact | sexeact | paper      |
++--------------+---------+---------+------------+
+| Nicolas Cage |      57 | home    | home madur |
++--------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++--------------+---------+---------+-------------+
+| nomact       | edatact | sexeact | paper       |
++--------------+---------+---------+-------------+
+| Diane Kruger |      45 | dona    | dona madura |
++--------------+---------+---------+-------------+
+1 row in set (0.01 sec)
+
++-----------+---------+---------+-------------+
+| nomact    | edatact | sexeact | paper       |
++-----------+---------+---------+-------------+
+| Tom Hanks |      65 | home    | dona madura |
++-----------+---------+---------+-------------+
+1 row in set (0.01 sec)
+
++----------------------+---------+---------+-------------+
+| nomact               | edatact | sexeact | paper       |
++----------------------+---------+---------+-------------+
+| Catherine Zeta-Jones |      52 | dona    | dona madura |
++----------------------+---------+---------+-------------+
+1 row in set (0.01 sec)
+
++---------------+---------+---------+------------+
+| nomact        | edatact | sexeact | paper      |
++---------------+---------+---------+------------+
+| Javier Bardem |      52 | home    | home madur |
++---------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++------------+---------+---------+------------+
+| nomact     | edatact | sexeact | paper      |
++------------+---------+---------+------------+
+| Tom Cruise |      59 | home    | home madur |
++------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++------------+---------+---------+------------+
+| nomact     | edatact | sexeact | paper      |
++------------+---------+---------+------------+
+| Jamie Foxx |      54 | home    | home madur |
++------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++--------------+---------+---------+-----------+
+| nomact       | edatact | sexeact | paper     |
++--------------+---------+---------+-----------+
+| Jessica Alba |      40 | dona    | dona gran |
++--------------+---------+---------+-----------+
+1 row in set (0.01 sec)
+
++---------------+---------+---------+------------+
+| nomact        | edatact | sexeact | paper      |
++---------------+---------+---------+------------+
+| Ioan Gruffudd |      48 | home    | home madur |
++---------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++-------------------+---------+---------+------------+
+| nomact            | edatact | sexeact | paper      |
++-------------------+---------+---------+------------+
+| Robert Downey Jr. |      56 | home    | home madur |
++-------------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++-----------------+---------+---------+-------------+
+| nomact          | edatact | sexeact | paper       |
++-----------------+---------+---------+-------------+
+| Gwyneth Paltrow |      49 | dona    | dona madura |
++-----------------+---------+---------+-------------+
+1 row in set (0.01 sec)
+
++-----------------+---------+---------+------------+
+| nomact          | edatact | sexeact | paper      |
++-----------------+---------+---------+------------+
+| Chris Hemsworth |      38 | home    | home adult |
++-----------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++--------------+---------+---------+------------+
+| nomact       | edatact | sexeact | paper      |
++--------------+---------+---------+------------+
+| Mark Ruffalo |      54 | home    | home madur |
++--------------+---------+---------+------------+
+1 row in set (0.01 sec)
+
++-------------+---------+---------+-----------+
+| nomact      | edatact | sexeact | paper     |
++-------------+---------+---------+-----------+
+| Chris Evans |      40 | home    | home gran |
++-------------+---------+---------+-----------+
+1 row in set (0.01 sec)
+
++--------------------+---------+---------+-------------+
+| nomact             | edatact | sexeact | paper       |
++--------------------+---------+---------+-------------+
+| Scarlett Johansson |      37 | dona    | dona adulta |
++--------------------+---------+---------+-------------+
+1 row in set (0.01 sec)
+
++---------------+---------+---------+-----------+
+| nomact        | edatact | sexeact | paper     |
++---------------+---------+---------+-----------+
+| Jeremy Renner |      40 | home    | home gran |
++---------------+---------+---------+-----------+
+1 row in set (0.01 sec)
+
++--------------+---------+---------+-----------+
+| nomact       | edatact | sexeact | paper     |
++--------------+---------+---------+-----------+
+| James Spader |      61 | home    | home gran |
++--------------+---------+---------+-----------+
+1 row in set (0.01 sec)
+
++-----------------+---------+---------+------------+
+| nomact          | edatact | sexeact | paper      |
++-----------------+---------+---------+------------+
+| Michael Chiklis |      52 | home    | home madur |
++-----------------+---------+---------+------------+
+1 row in set (0.02 sec)
+
++---------------+---------+---------+-------------+
+| nomact        | edatact | sexeact | paper       |
++---------------+---------+---------+-------------+
+| Hayley Atwell |      39 | dona    | dona adulta |
++---------------+---------+---------+-------------+
+1 row in set (0.02 sec)
+
++----------------+---------+---------+------------+
+| nomact         | edatact | sexeact | paper      |
++----------------+---------+---------+------------+
+| Sebastian Stan |      39 | home    | home adult |
++----------------+---------+---------+------------+
+1 row in set (0.02 sec)
+
++----------+---------+---------+------------+
+| nomact   | edatact | sexeact | paper      |
++----------+---------+---------+------------+
+| Tim Hill |     271 | Home    | home adult |
++----------+---------+---------+------------+
+1 row in set (0.02 sec)
+
++-------------+---------+---------+------------+
+| nomact      | edatact | sexeact | paper      |
++-------------+---------+---------+------------+
+| Scott Frank |      34 | Home    | home adult |
++-------------+---------+---------+------------+
+1 row in set (0.02 sec)
+
++------------+---------+---------+------------+
+| nomact     | edatact | sexeact | paper      |
++------------+---------+---------+------------+
+| Walt Dohrn |      31 | Home    | home adult |
++------------+---------+---------+------------+
+1 row in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+
 ```
 
 ---
