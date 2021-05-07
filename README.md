@@ -552,7 +552,7 @@ mysql>
 ## Dissenya una funció que rebent un codi de pel·lícula torni el nombre d’usuaris que l’han vist.<br>Utilitza aquesta funció per llistar el títol de la pel·lícula i el nom de l’usuari.
 
 **1. Enllaç al fitxer**
-
+[act11.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/028dc0437386024b6ac5d9917e935d47e783a26e/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_011.sql)
 **2. Contingut del fitxer**
 ```sql
    use videoclub;
@@ -623,7 +623,7 @@ mysql>
 ## Dissenya una funció que rebi el codi d’una pel·lícula i torni el nom i cognoms del seu actor principal.<br>Utilitza aquesta funció per llistar el títol de la pel·lícula i el nom i cognoms del seu actor principal.
 
 **1. Enllaç al fitxer**
-
+[act12.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/9af3439c8cd873b5883b3896444416ae644bb6b7/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_012.sql)
 **2. Contingut del fitxer**
 ```sql
    use videoclub;
@@ -695,7 +695,7 @@ mysql>
 ## Fes una funció que torni el codi de pel·lícula que més ha recaptat.<br>Emprant la funció anterior i la funció de l’**activitat 12**, llista el títol, actor principal i recaptació de la pel·lícula que més ha recaptat.
 
 **1. Enllaç al fitxer**
-
+[act13.sql](https://github.com/MarcBouzas/Exercicis_MP02_UF03/blob/9af3439c8cd873b5883b3896444416ae644bb6b7/(M02)UF3.%20ActivitatsCursors/BouzasMarc_Act_03_ProcEmm_MySQL_Apartat_013.sql)
 **2. Contingut del fitxer**
 ```sql
    use videoclub;
